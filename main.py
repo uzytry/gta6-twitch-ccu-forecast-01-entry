@@ -35,8 +35,12 @@ BANDWIDTH = 1.5
 # Extra weight for rolling-midnight launches (the target unlocks that way).
 ROLLING_BOOST = 1.5
 # The residual spread is shrunk a little: the kernel-weighted spread still
-# carries some of the trend across launch sizes.
-SPREAD_SHRINK = 0.85
+# carries some of the trend across launch sizes. 0.80 (was 0.85): practice
+# mean 0.1552 -> 0.1511, and leave-one-out over 16 held-out big launches
+# stays flat (0.2314 vs 0.2312), so the tighter quantiles are real, not
+# practice-case overfitting. Sharper still (0.75/0.70) keeps helping
+# practice but starts degrading leave-one-out, so 0.80 is the stop point.
+SPREAD_SHRINK = 0.80
 # Smallest spread allowed, in log units, so no hour is forecast razor-thin.
 SPREAD_FLOOR = 0.12
 # Fallback spread for the persistence baseline (the starter's sigma).
